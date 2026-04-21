@@ -8,15 +8,19 @@ const app = express();
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Static files
 app.use(express.static(path.join(__dirname, "../public")));
 
 // View Engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "../views"));
 
+// Temporary storage
 let storedData = {};
 
-// Homepage route
+// Homepage
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
 });
@@ -25,6 +29,10 @@ app.get("/", (req, res) => {
 app.post("/submit", async (req, res) => {
   try {
     const { upi, name, policy, amount } = req.body;
+
+    if (!upi || !name || !policy || !amount) {
+      return res.send("Missing required fields");
+    }
 
     const id = uuidv4();
 
@@ -40,14 +48,21 @@ app.post("/submit", async (req, res) => {
     };
 
     res.redirect(`/verify/${id}`);
+
   } catch (error) {
-    console.error(error);
-    res.send("Something went wrong");
+    console.error("Submit Error:", error);
+    res.status(500).send("Server Error");
   }
 });
 
 // Verification page
 app.get("/verify/:id", (req, res) => {
+  const data = storedData[req.params.id];
+
+  if (!data) {
+    return res.send("Invalid or expired link");
+  }
+
   res.render("verify", { id: req.params.id, error: null });
 });
 
@@ -55,7 +70,9 @@ app.get("/verify/:id", (req, res) => {
 app.post("/verify/:id", (req, res) => {
   const data = storedData[req.params.id];
 
-  if (!data) return res.send("Invalid Link");
+  if (!data) {
+    return res.send("Invalid Link");
+  }
 
   if (req.body.policy !== data.policy) {
     return res.render("verify", {
@@ -67,4 +84,5 @@ app.post("/verify/:id", (req, res) => {
   res.render("details", { data });
 });
 
+// Export for Vercel
 module.exports = app;
