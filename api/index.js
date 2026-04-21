@@ -5,16 +5,21 @@ const { v4: uuidv4 } = require("uuid");
 const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT || 3000;   // ✅ FIXED
 
+// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "../public")));
 
+// View Engine
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, "../public")))
+app.set("views", path.join(__dirname, "../views"));
 
 let storedData = {};
+
+// Homepage route
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
 
 // Submit route
 app.post("/submit", async (req, res) => {
@@ -62,9 +67,4 @@ app.post("/verify/:id", (req, res) => {
   res.render("details", { data });
 });
 
-// Optional homepage route (recommended)
-app.get("/", (req, res) => {
-  res.redirect("/verify"); // ya apna main page route
-});
-
-module.exports = app
+module.exports = app;
