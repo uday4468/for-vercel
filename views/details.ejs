@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Page</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f2f2;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 380px;
+    background: #ffffff;
+    min-height: 100vh;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.header {
+    text-align: center;
+    padding: 20px 10px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.header img {
+    width: 260px;
+}
+
+.verified {
+    text-align: center;
+    padding: 15px;
+    font-size: 18px;
+}
+
+.verified span {
+    font-weight: bold;
+}
+
+.badge {
+    color: #1da1f2;
+    font-size: 18px;
+}
+
+.qr-card {
+    width: 250px;
+    margin: 0 auto;
+    padding: 15px;
+    border-radius: 12px;
+    background: #fafafa;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.qr-card img {
+    width: 200px;
+}
+
+.details {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.details p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.upi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.copy-btn {
+    background: #0d6efd;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.amount {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.btn {
+    width: 85%;
+    margin: 15px auto;
+    display: block;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.pay-btn {
+    background: #ed1c24;
+    color: white;
+    border: none;
+}
+
+.back-btn {
+    background: white;
+    border: 2px solid #0d6efd;
+    color: #0d6efd;
+}
+
+.payment {
+    text-align: center;
+    margin-top: 25px;
+    padding-bottom: 20px;
+}
+
+.payment img {
+    width: 80%;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <img src="/images/company_logo.png" alt="IndusInd Nippon Life">
+    </div>
+
+    <div class="verified">
+        Verified Business: <span><%= data.name %></span>
+        <span class="badge">
+            <img src="/images/verified_logo.png" alt="Verified Badge" width="20">
+        </span>
+    </div>
+
+    <div class="qr-card">
+        <img src="<%= data.qrImage %>">
+    </div>
+
+    <div class="details">
+        <div class="upi">
+            <p><strong>UPI ID:</strong> <%= data.upi %></p>
+            <button class="copy-btn" onclick="copyUPI()">Copy</button>
+        </div>
+
+        <p><strong>Policy Number:</strong> <%= data.policy %></p>
+        <p class="amount">Amount: ₹<%= data.amount %></p>
+    </div>
+
+    <button class="btn pay-btn" onclick="showPopup()">Pay Now</button>
+
+    <button class="btn back-btn" onclick="goBack()">Back</button>
+
+    <div class="payment">
+        <img src="/images/IMA-Trivandrum-payments.png" alt="Payment Methods">
+    </div>
+
+</div>
+
+<!-- Maintenance Screen -->
+<div id="maintenanceScreen" style="display:none; padding:40px; text-align:center;">
+    <h1 style="font-size:32px;">Website Under Maintenance</h1>
+    <p style="font-size:18px; color:gray;">
+        We're working hard to improve our website. Please check back soon !
+    </p>
+</div>
+
+<script>
+function copyUPI() {
+    navigator.clipboard.writeText("<%= data.upi %>");
+    alert("UPI ID Copied!");
+}
+
+function showPopup() {
+    alert("UPI payment is only available on mobile devices.");
+}
+
+function goBack() {
+    window.history.back();
+}
+
+</script>
+
+</body>
+</html>

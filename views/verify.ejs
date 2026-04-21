@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Premium Payment</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+/* Top Logo Section */
+.header {
+    background-color: #ffffff;
+    padding: 25px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.header img {
+    height: 65px;
+}
+
+/* Main Section */
+.container {
+    margin-top: 40px;
+}
+
+.main-title {
+    color: #e31837;
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    color: #888;
+    font-size: 15px;
+    margin-bottom: 30px;
+}
+
+/* Input Box */
+.input-box {
+    width: 320px;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.input-box::placeholder {
+    color: #999;
+}
+
+/* Button */
+.btn {
+    display: block;
+    margin: 20px auto;
+    background-color: #0b5c8e;
+    color: white;
+    border: none;
+    padding: 10px 28px;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #084a72;
+}
+
+/* Footer Text */
+.footer {
+    text-align: left;
+    max-width: 1100px;
+    margin: 50px auto;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.footer strong {
+    font-weight: bold;
+}
+
+.footer a {
+    color: #e31837;
+    text-decoration: none;
+}
+
+.footer ul {
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Header Logo -->
+<div class="header">
+    <img src="/images/company_logo.png" alt="IndusInd Nippon Life">
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="main-title">Online Premium Payment</div>
+
+    <div class="subtitle">
+        Online payment is supported by versions IE 9+ | Chrome 35+ | Mozilla 35+ | Opera 30+ | Safari 5+
+    </div>
+
+    <form action="/verify/<%= id %>" method="POST" class="verify-form">
+        <input type="text" name="policy" placeholder="Enter Policy Number*" required>
+        <button type="submit">Proceed</button>
+    </form>
+
+    <% if (error) { %>
+        <p class="error-msg"><%= error %></p>
+    <% } %>
+</div>
+
+<!-- Footer Section -->
+<div class="footer">
+    Reliance Nippon Life Insurance Company Limited, Registered and Corporate Office :
+    Unit Nos. 401B, 402, 403 & 404, 4th Floor, Inspire-BKC, G Block, BKC Main Road,
+    Bandra Kurla Complex, Bandra East, Mumbai – 400051, India. T +22 6896 5000.
+    Insurance is the subject matter of the solicitation. Reliance Life Insurance Company
+    Limited is licensed life insurance company registered with the Insurance Regulatory
+    and Development Authority (Registration No: 121) in accordance with the provisions
+    of the Insurance Act 1938.
+
+    <br><br>
+    IRDAI clarifies to public that:
+
+    <ul>
+        <li>IRDAI or its officials are not involved in activities like sale of any kind of insurance or financial products nor invest premiums.</li>
+        <li>IRDAI does not announce bonus.</li>
+    </ul>
+
+    www.reliancenipponlife.com
+
+    <br><br>
+    Email: <a href="#">indiaservice@reliancenipponlife.com</a>
+
+    <br><br>
+    IRDAI Regn No.: 121
+</div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UPI QR Code Generator</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <h2>UPI QR Code Generator</h2>
+
+    <form action="/submit" method="POST">
+      <input type="text" name="upi" placeholder="Enter UPI ID" required>
+      <input type="text" name="name" placeholder="Enter Name" required>
+      <input type="text" name="policy" placeholder="Enter Policy Number" required>
+      <input type="number" name="amount" placeholder="Enter Amount" required>
+
+      <button type="button" onclick="generateQR()">Generate QR Code</button>
+      <div id="qr"></div>
+
+      <button type="submit" class="submit-btn">Submit and View QR Details</button>
+    </form>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
